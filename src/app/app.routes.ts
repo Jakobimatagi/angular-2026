@@ -76,5 +76,11 @@ export const routes: Routes = [
 			import('./features/skillpoint/skillpoint.component')
 				.then(m => m.SkillpointComponent),
 	},
+	{
+		path: 'weather-cast',
+		loadComponent: () =>
+			import('./features/weather-cast/weather-cast.component')
+				.then(m => m.WeatherCastComponent),
+	},
 	{ path: '**', redirectTo: '' },
 ];

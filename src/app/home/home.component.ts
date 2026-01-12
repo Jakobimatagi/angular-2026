@@ -11,6 +11,7 @@ import { RouterLink } from '@angular/router';
 export class HomeComponent {
   protected readonly buttons = signal<ReadonlyArray<{ label: string; path: string }>>([
     { label: 'Skill Point Distributor', path: '/skill-point-distributor' },
+    { label: 'Weather Cast', path: '/weather-cast' },
     // { label: 'Standalone Components', path: '/standalone-components' },
     // { label: 'Signals & Reactivity', path: '/signals-reactivity' },
     // { label: 'Reactive Forms', path: '/reactive-forms' },

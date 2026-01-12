@@ -1,0 +1,22 @@
+<div class="flex h-screen">
+  <div
+    class="flex flex-col justify-center items-center gap-4 m-auto bg-whitesmoke-100 p-4 rounded-lg shadow-lg"
+  >
+    <div class="flex flex-col justify-center items-center gap-2">
+      <h1 class="text-2xl font-bold m-2">Skill Point System</h1>
+      <p>Max Points: {{ maxPoints }}</p>
+      <p>Points Available: {{ pointsLeft() }}</p>
+    </div>
+    <div class="flex justify-center items-center">
+      <button mat-button (click)="decreaseStrength()">-</button>
+      <p>Strength: {{ strength }}</p>
+      <button mat-button (click)="addStrength()">+</button>
+    </div>
+    <div class="flex justify-center items-center">
+      <button mat-button (click)="decreaseSpeed()">-</button>
+      <p>Speed: {{ speed }}</p>
+      <button mat-button (click)="addSpeed()">+</button>
+    </div>
+    <button mat-button (click)="resetPoints()">Reset Points</button>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+.home {
+  display: grid;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+.subtitle {
+  color: #666;
+  margin: 0 0 0.5rem 0;
+}
+
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.nav-btn {
+  display: inline-block;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  background: #fafafa;
+}
+
+.nav-btn:hover {
+  background: #f0f0f0;
+}

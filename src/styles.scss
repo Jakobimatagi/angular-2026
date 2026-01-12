@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+
+@use '@angular/material' as mat;
+@use 'tailwindcss';
+
+@import 'tailwindcss';
+// Just use the default Material 3 light theme
+$app-theme: mat.define-theme((
+  color: (theme-type: light),
+));
+
+// Apply to all components
+html {
+  @include mat.all-component-themes($app-theme);
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}

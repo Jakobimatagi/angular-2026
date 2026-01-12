@@ -1,0 +1,35 @@
+:host {
+	display: block;
+	padding: 1.5rem;
+}
+
+.title {
+	margin: 0 0 1rem;
+	font-size: 1.5rem;
+	font-weight: 600;
+}
+
+.nav-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+	gap: 1rem;
+	margin-bottom: 2rem;
+}
+
+.nav-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	aspect-ratio: 1 / 1;
+	padding: 1rem;
+	border-radius: 0.5rem;
+	border: 1px solid #ddd;
+	text-decoration: none;
+	color: inherit;
+	background: #fafafa;
+}
+
+.nav-btn:hover {
+	background: #f0f0f0;
+	border-color: #cfcfcf;
+}

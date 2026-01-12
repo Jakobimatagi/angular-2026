@@ -93,4 +93,11 @@
       }
     }
   }
+  ,
+  "cli": {
+    "cache": {
+      "enabled": true,
+      "path": "C:/Users/jkmat/AppData/Local/Temp/angular-cli-cache"
+    }
+  }
 }

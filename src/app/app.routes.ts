@@ -82,5 +82,11 @@ export const routes: Routes = [
 			import('./features/weather-cast/weather-cast.component')
 				.then(m => m.WeatherCastComponent),
 	},
+	{
+		path: 'todo-list',
+		loadComponent: () =>
+			import('./features/todo-list/todo-list.component')
+				.then(m => m.TodoListComponent),
+	},
 	{ path: '**', redirectTo: '' },
 ];

@@ -1,0 +1,52 @@
+<div class="flex items-center justify-center p-4">
+  <mat-card class="w-full max-w-md shadow-xl">
+    <mat-card-header class="pb-4">
+      <mat-card-title class="text-2xl font-bold text-gray-800">Supabase + Angular</mat-card-title>
+      <mat-card-subtitle>
+        <p class="text-gray-600 mt-4 mb-4">Sign in via magic link with your email below</p>
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="pt-4">
+      <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <mat-form-field appearance="outline" class="w-full">
+          <input
+            matInput
+            id="email"
+            formControlName="email"
+            type="email"
+            placeholder="your@email.com"
+            class="text-base"
+          />
+          <mat-icon matPrefix class="text-gray-500">email</mat-icon>
+          @if (signInForm.get('email')?.hasError('email') && signInForm.get('email')?.touched) {
+          <mat-error>Please enter a valid email</mat-error>
+          } @if (signInForm.get('email')?.hasError('required') && signInForm.get('email')?.touched)
+          {
+          <mat-error>Email is required</mat-error>
+          }
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="w-full h-12 text-base font-medium"
+          [disabled]="loading || signInForm.invalid"
+        >
+          @if (loading) {
+          <div class="flex items-center justify-center gap-2">
+            <mat-spinner diameter="20"></mat-spinner>
+            <span>Loading</span>
+          </div>
+          } @else {
+          <div class="flex items-center justify-center gap-2">
+            <mat-icon>send</mat-icon>
+            <span>Send magic link</span>
+          </div>
+          }
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

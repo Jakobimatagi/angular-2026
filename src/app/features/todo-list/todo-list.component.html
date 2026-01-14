@@ -1,4 +1,81 @@
-<div class="flex flex-col justify-center items-center h-full w-full gap-4">
-  <h1 class="text-2xl font-bold mb-4">Todo List</h1>
-  <p>This is a placeholder for the Todo List feature coming soon.</p>
+<div class="max-w-4xl mx-auto p-8 flex flex-col gap-6">
+  <div class="text-center">
+    <h1 class="text-3xl font-bold mb-2">Todo List</h1>
+    <p class="text-gray-600">Organize your tasks</p>
+  </div>
+
+  <div class="flex gap-4 items-center">
+    <mat-form-field class="flex-1">
+      <input
+        matInput
+        placeholder="What needs to be done?"
+        [(ngModel)]="newTodoText"
+        (keyup.enter)="addTodo()"
+      />
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="addTodo()">
+      <mat-icon>add</mat-icon>
+      Add
+    </button>
+  </div>
+
+  <div class="flex justify-center">
+    <mat-chip-set aria-label="Filter selection">
+      <mat-chip [class.selected]="currentFilter() === 'all'" (click)="setFilter('all')">
+        All ({{ todos().length }})
+      </mat-chip>
+      <mat-chip [class.selected]="currentFilter() === 'active'" (click)="setFilter('active')">
+        Active ({{ activeTodoCount() }})
+      </mat-chip>
+      <mat-chip [class.selected]="currentFilter() === 'completed'" (click)="setFilter('completed')">
+        Completed ({{ completedTodoCount() }})
+      </mat-chip>
+    </mat-chip-set>
+  </div>
+
+  <div
+    cdkDropList
+    class="min-h-[200px] flex flex-col gap-2"
+    (cdkDropListDropped)="onTodoDrop($event)"
+  >
+    @if (filteredTodos().length === 0) {
+    <div class="flex flex-col items-center justify-center p-12 text-gray-400">
+      <mat-icon class="text-5xl w-12 h-12 mb-4">task_alt</mat-icon>
+      <p class="text-lg">No todos {{ currentFilter() === 'all' ? 'yet' : 'in this category' }}</p>
+    </div>
+    } @for (todo of filteredTodos(); track todo.id) {
+    <div
+      cdkDrag
+      class="flex items-center gap-4 p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow cursor-move"
+      [class.opacity-60]="todo.completed"
+    >
+      <mat-icon cdkDragHandle class="cursor-grab text-gray-400 active:cursor-grabbing"
+        >drag_indicator</mat-icon
+      >
+
+      <mat-checkbox [checked]="todo.completed" (change)="toggleTodo(todo.id)"> </mat-checkbox>
+
+      <span
+        class="flex-1 text-base"
+        [class.line-through]="todo.completed"
+        [class.text-gray-400]="todo.completed"
+        >{{ todo.text }}</span
+      >
+
+      <span class="text-xs text-gray-400">{{ todo.createdAt | date : 'short' }}</span>
+
+      <button mat-icon-button color="warn" (click)="deleteTodo(todo.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    }
+  </div>
+
+  <div class="flex justify-center pt-4 border-t border-gray-200">
+    @if (completedTodoCount() > 0) {
+    <button mat-stroked-button color="warn" (click)="clearCompleted()">
+      Clear {{ completedTodoCount() }} completed
+    </button>
+    }
+  </div>
 </div>

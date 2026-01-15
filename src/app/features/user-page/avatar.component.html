@@ -1,0 +1,54 @@
+@if (size() === 'small') {
+<div class="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center">
+  @if (avatarImageUrl()) {
+  <img [src]="avatarImageUrl()" alt="Avatar" class="w-full h-full object-cover" />
+  } @else {
+  <mat-icon class="text-white text-2xl w-8 h-8">account_circle</mat-icon>
+  }
+</div>
+} @else {
+<div class="flex flex-row items-center gap-4">
+  <div class="relative">
+    @if (avatarImageUrl()) {
+    <img
+      [src]="avatarImageUrl()"
+      alt="Avatar"
+      class="w-10 h-10 rounded-full object-cover border-4 border-blue-500 shadow-lg"
+    />
+    } @else {
+    <div
+      class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center shadow-lg"
+    >
+      <mat-icon class="text-white text-7xl">account_circle</mat-icon>
+    </div>
+    } @if (uploading()) {
+    <div
+      class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full"
+    >
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+    }
+  </div>
+
+  <label for="avatar-upload" class="cursor-pointer">
+    <input
+      type="file"
+      id="avatar-upload"
+      accept="image/*"
+      (change)="onFileChange($event)"
+      class="hidden"
+      [disabled]="uploading()"
+    />
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      [disabled]="uploading()"
+      class="flex items-center gap-2"
+    >
+      <mat-icon>upload</mat-icon>
+      <span>Upload Avatar</span>
+    </button>
+  </label>
+</div>
+}

@@ -1,0 +1,73 @@
+<div class="flex items-center justify-center min-h-screen p-4">
+  <mat-card class="w-full max-w-2xl shadow-xl">
+    <mat-card-header class="pb-4">
+      <mat-card-title class="text-2xl font-bold text-gray-800">Account Settings</mat-card-title>
+      <mat-card-subtitle class="text-gray-600 mt-2"
+        >Manage your profile information</mat-card-subtitle
+      >
+    </mat-card-header>
+
+    <mat-card-content class="pt-4">
+      <div class="flex justify-center mb-6">
+        <app-avatar [avatarUrl]="avatarUrl" (upload)="updateAvatar($event)"></app-avatar>
+      </div>
+
+      <form [formGroup]="updateProfileForm" (ngSubmit)="updateProfile()" class="space-y-4">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" [value]="userEmail" disabled />
+          <mat-icon matPrefix class="text-gray-500">email</mat-icon>
+          <mat-hint>Your email cannot be changed</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <input
+            matInput
+            formControlName="display_name"
+            type="text"
+            placeholder="Enter your display name"
+          />
+          <mat-icon matPrefix class="text-gray-500">person</mat-icon>
+          @if (updateProfileForm.get('display_name')?.hasError('required') &&
+          updateProfileForm.get('display_name')?.touched) {
+          <mat-error>Display name is required</mat-error>
+          }
+        </mat-form-field>
+
+        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="flex-1 h-12 text-base font-medium"
+            [disabled]="loading() || updateProfileForm.invalid"
+          >
+            @if (loading()) {
+            <div class="flex items-center justify-center gap-2">
+              <mat-spinner diameter="20"></mat-spinner>
+              <span>Updating...</span>
+            </div>
+            } @else {
+            <div class="flex items-center justify-center gap-2">
+              <mat-icon>save</mat-icon>
+              <span>Update Profile</span>
+            </div>
+            }
+          </button>
+
+          <button
+            mat-stroked-button
+            type="button"
+            class="flex-1 h-12 text-base font-medium"
+            (click)="signOut()"
+          >
+            <div class="flex items-center justify-center gap-2">
+              <mat-icon>logout</mat-icon>
+              <span>Sign Out</span>
+            </div>
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -4,12 +4,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Session } from '@supabase/supabase-js';
-import { AvatarComponent } from "./features/user-page/avatar.component";
 import { SupabaseService } from './supabase.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, MatIconModule, MatButtonModule, MatProgressSpinnerModule, AvatarComponent],
+  imports: [RouterOutlet, RouterLink, MatIconModule, MatButtonModule, MatProgressSpinnerModule],
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -41,7 +40,12 @@ export class App {
 
   protected async signOut(): Promise<void> {
     await this.supabaseService.signOut();
-    this.router.navigate(['/']);
+    this.router.navigate(['/'], { 
+      replaceUrl: true 
+    }).then(() => {
+      // Force page reload to reset all state
+      window.location.reload();
+    });
   }
 
   protected navigateToAccount(): void {

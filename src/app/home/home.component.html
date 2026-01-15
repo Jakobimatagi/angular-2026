@@ -2,7 +2,17 @@
   <h1 class="text-3xl font-bold text-center mb-2">Angular Practice Projects</h1>
   <p class="text-center text-gray-600 mb-8">Vote for your favorite projects!</p>
 
-  @if (loading()) {
+  @if (!userId()) {
+  <div class="w-1/2 mx-auto bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 text-center">
+    <p class="text-blue-800">
+      <mat-icon class="align-middle mr-2">info</mat-icon>
+      <a routerLink="/auth" class="text-blue-600 hover:text-blue-800 underline font-medium"
+        >Sign in</a
+      >
+      to vote on projects
+    </p>
+  </div>
+  } @if (loading()) {
   <div class="flex justify-center items-center p-12">
     <mat-spinner diameter="48"></mat-spinner>
   </div>
@@ -18,7 +28,7 @@
             [style.color]="button.userVote === 1 ? '#ff4500' : '#999'"
             (click)="toggleVote(button.path, 1)"
             [disabled]="!userId() || votingInProgress()"
-            matTooltip="Upvote"
+            [matTooltip]="userId() ? 'Upvote' : 'Sign in to vote'"
           >
             <mat-icon class="flex items-center justify-center">arrow_upward</mat-icon>
           </button>
@@ -32,7 +42,7 @@
             [style.color]="button.userVote === -1 ? '#7193ff' : '#999'"
             (click)="toggleVote(button.path, -1)"
             [disabled]="!userId() || votingInProgress()"
-            matTooltip="Downvote"
+            [matTooltip]="userId() ? 'Downvote' : 'Sign in to vote'"
           >
             <mat-icon class="flex items-center justify-center">arrow_downward</mat-icon>
           </button>
@@ -43,7 +53,7 @@
         <button
           mat-flat-button
           [routerLink]="button.path"
-          class="flex-1 flex flex-col justify-center cursor-pointer border border-gray-300 rounded-md p-2 hover:border-gray-400 hover:bg-gray-50 transition-colors"
+          class="flex-1 flex flex-col justify-center"
         >
           <span>{{ button.label }}</span>
         </button>

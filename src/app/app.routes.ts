@@ -1,4 +1,35 @@
-import { Routes } from '@angular/router';
+import { inject } from '@angular/core';
+import { Router, Routes, type CanActivateFn } from '@angular/router';
+import { SupabaseService } from './supabase.service';
+export const authGuard: CanActivateFn = async () => {
+  const supabase = inject(SupabaseService).supabase;
+  const router = inject(Router);
+
+  const { data: { session } } = await supabase.auth.getSession();
+
+  if (session) {
+    // User is logged in, redirect to home
+    router.navigate(['/']);
+    return false;
+  }
+
+  return true;
+};
+
+export const requireAuthGuard: CanActivateFn = async () => {
+  const supabase = inject(SupabaseService).supabase;
+  const router = inject(Router);
+
+  const { data: { session } } = await supabase.auth.getSession();
+
+  if (!session) {
+    // User is not logged in, redirect to auth
+    router.navigate(['/auth']);
+    return false;
+  }
+
+  return true;
+};
 
 export const routes: Routes = [
     {
@@ -8,11 +39,13 @@ export const routes: Routes = [
     },
     {
         path: 'auth',
+        canActivate: [authGuard],
         loadComponent: () =>
             import('./features/auth/auth.component').then(m => m.AuthComponent),
     },
     {
         path: 'account',
+        canActivate: [requireAuthGuard],
         loadComponent: () =>
             import('./features/user-page/account.component').then(m => m.AccountComponent),
     },
